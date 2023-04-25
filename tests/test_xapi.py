@@ -1,22 +1,21 @@
 import unittest
+import time
 
 from xapi import xapi, LoginFailed, ConnectionClosed
 from mock_server import MockServer
 
-HOST = "localhost"
-PORT = 60451
-
 CREDENTIALS = {
     "accountId": "mockId",
     "password": "mockPasswd",
-    "host": f"ws://{HOST}:{PORT}"
+    "host": f"ws://127.0.0.1:60451"
 }
 
 class TestEspiEbiReports(unittest.IsolatedAsyncioTestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.mock_server = MockServer(HOST, PORT)
+        cls.mock_server = MockServer("127.0.0.1", 60451)
+        time.sleep(.1) # wait for the server to become ready
         pass
 
     @classmethod
