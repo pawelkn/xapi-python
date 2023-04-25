@@ -1,0 +1,7 @@
+.vscode
+build
+idea
+credentials.json
+__pycache__
+*.pyc
+*.egg-info
