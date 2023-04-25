@@ -14,5 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Install requirements
+      run: pip install -r requirements.txt
+
     - name: Test xapi-python
-      run: python3 -m unittest discover tests
+      run: python -m unittest discover tests
