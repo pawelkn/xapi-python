@@ -7,11 +7,6 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Python
-        uses: actions/setup-python@master
-        with:
-          python-version: 3.7
-
       - uses: actions/checkout@v3
 
       - name: Install requirements
