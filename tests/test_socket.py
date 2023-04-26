@@ -206,8 +206,11 @@ class TestSocket(unittest.IsolatedAsyncioTestCase):
         })
 
     async def test_tradeTransaction(self):
-        self.assertFalse(self.socket.safe)
+        self.socket.safe = True
+        await self.socket.tradeTransaction("symbol", TradeCmd.BUY, TradeType.OPEN, 1.23, 4.56)
+        self.socket._transaction.assert_not_awaited()
 
+        self.socket.safe = False
         await self.socket.tradeTransaction("symbol", TradeCmd.BUY, TradeType.OPEN, 1.23, 4.56)
         self.socket._transaction.assert_awaited_once_with({
             "command": "tradeTransaction",
