@@ -5,8 +5,6 @@ import websockets.exceptions
 import asyncio
 import json
 
-PING_INTERVAL = 15
-
 class Connection():
     def __init__(self):
         self.safe = False
