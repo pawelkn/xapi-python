@@ -1,6 +1,6 @@
 # xStation5 API Python Library
 
-[![Test xapi-python](https://github.com/pawelkn/xapi-python/actions/workflows/test-xapi-python.yml/badge.svg)](https://github.com/pawelkn/xapi-python/actions/workflows/test-xapi-python.yml)
+[![Test xapi-python](https://github.com/pawelkn/xapi-python/actions/workflows/test-xapi-python.yml/badge.svg)](https://github.com/pawelkn/xapi-python/actions/workflows/test-xapi-python.yml) [![PyPi](https://img.shields.io/pypi/v/xapi-python.svg)](https://pypi.python.org/pypi/xapi-python/) [![Downloads](https://img.shields.io/pypi/dm/xapi-python)](https://pypi.python.org/pypi/xapi-python/) [![Codecov](https://codecov.io/gh/pawelkn/xapi-python/branch/master/graph/badge.svg)](https://codecov.io/gh/pawelkn/xapi-python/)
 
 The xStation5 API Python library provides a simple and easy-to-use API for interacting with the xStation5 trading platform. With this library, you can connect to the xStation5 platform, retrieve market data, and execute trades.
 
