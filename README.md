@@ -31,7 +31,7 @@ import asyncio
 import xapi
 
 # Replace these values with your own credentials
-credentials = {
+CREDENTIALS = {
     "accountId": "<your_client_id>",
     "password": "<your_password>",
     "host": "ws.xtb.com",
@@ -42,7 +42,8 @@ credentials = {
 async def main():
     try:
         # Create a new xAPI object and connect to the xStation5 platform
-        x = await xapi.connect(**credentials)
+        async with await xapi.connect(**CREDENTIALS) as x:
+            pass
 
     except xapi.LoginFailed as e:
         print(f"Log in failed: {e}")
@@ -63,7 +64,7 @@ import asyncio
 import xapi
 
 # Replace these values with your own credentials
-credentials = {
+CREDENTIALS = {
     "accountId": "<your_client_id>",
     "password": "<your_password>",
     "host": "ws.xtb.com",
@@ -74,15 +75,14 @@ credentials = {
 async def main():
     while True:
         try:
-            x = await xapi.connect(**credentials)
+            async with await xapi.connect(**CREDENTIALS) as x:
+                # Subscribe for the current price of BITCOIN and ETHEREUM
+                await x.stream.getTickPrices("BITCOIN")
+                await x.stream.getTickPrices("ETHEREUM")
 
-            # Subscribe for the current price of BITCOIN and ETHEREUM
-            await x.stream.getTickPrices("BITCOIN")
-            await x.stream.getTickPrices("ETHEREUM")
-
-            # Listen for coming price ticks
-            async for message in x.stream.listen():
-                print(message['data'])
+                # Listen for coming price ticks
+                async for message in x.stream.listen():
+                    print(message['data'])
 
         except xapi.LoginFailed as e:
             print(f"Log in failed: {e}")
@@ -108,7 +108,7 @@ import xapi
 from xapi import TradeCmd, TradeType, TradeStatus
 
 # Replace these values with your own credentials
-credentials = {
+CREDENTIALS = {
     "accountId": "<your_client_id>",
     "password": "<your_password>",
     "host": "ws.xtb.com",
@@ -118,21 +118,20 @@ credentials = {
 
 async def main():
     try:
-        x = await xapi.connect(**credentials)
+        async with await xapi.connect(**CREDENTIALS) as x:
+            # Open a new trade for BITCOIN
+            response = await x.socket.tradeTransaction(
+                symbol="BITCOIN",
+                cmd=TradeCmd.BUY_LIMIT,
+                type=TradeType.OPEN,
+                price=10.00,
+                volume=1
+            )
 
-        # Open a new trade for BITCOIN
-        response = await x.socket.tradeTransaction(
-            symbol="BITCOIN",
-            cmd=TradeCmd.BUY_LIMIT,
-            type=TradeType.OPEN,
-            price=10.00,
-            volume=1
-        )
-
-        if response['status'] == True:
-            print("Transaction sent to market")
-        else:
-            print("Failed to trade a transaction", response)
+            if response['status'] == True:
+                print("Transaction sent to market")
+            else:
+                print("Failed to trade a transaction", response)
 
     except xapi.LoginFailed as e:
         print(f"Log in failed: {e}")
@@ -157,15 +156,15 @@ Before running the examples, you should create a file called _credentials.json_ 
     "accountId": "<your_client_id>",
     "password": "<your_password>",
     "host": "ws.xtb.com",
-    "type": "demo",
-    "safe": true
+    "type": "real",
+    "safe": false
 }
 ```
 
 Once you have created the _credentials.json_ file, you can run an example using the following command:
 
 ```shell
-python3 examples/get-balance.py
+python3 examples/get-margin-level.py
 ```
 
 ## Unit Tests

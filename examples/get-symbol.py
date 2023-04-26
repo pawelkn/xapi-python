@@ -1,19 +1,21 @@
+import logging
 import asyncio
 import json
 import xapi
 
+logging.basicConfig(level=logging.INFO)
+
 with open("credentials.json", "r") as f:
-    credentials = json.load(f)
+    CREDENTIALS = json.load(f)
 
 async def main():
     try:
-        x = await xapi.connect(**credentials)
-
-        response = await x.socket.getSymbol("BITCOIN")
-        if response['status'] == True:
-            print(response['returnData'])
-        else:
-            print("Failed to get symbol", response)
+        async with await xapi.connect(**CREDENTIALS) as x:
+            response = await x.socket.getSymbol("BITCOIN")
+            if response['status'] == True:
+                print(response['returnData'])
+            else:
+                print("Failed to get symbol", response)
 
     except xapi.LoginFailed as e:
         print(f"Log in failed: {e}")

@@ -1,19 +1,21 @@
+import logging
 import asyncio
 import json
 import xapi
 
+logging.basicConfig(level=logging.INFO)
+
 with open("credentials.json", "r") as f:
-    credentials = json.load(f)
+    CREDENTIALS = json.load(f)
 
 async def main():
     while True:
         try:
-            x = await xapi.connect(**credentials)
+            async with await xapi.connect(**CREDENTIALS) as x:
+                await x.stream.getBalance()
 
-            await x.stream.getBalance()
-
-            async for message in x.stream.listen():
-                print(message['data'])
+                async for message in x.stream.listen():
+                    print(message['data'])
 
         except xapi.LoginFailed as e:
             print(f"Log in failed: {e}")

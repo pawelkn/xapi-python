@@ -1,39 +1,38 @@
 import unittest
-import time
+from unittest.mock import AsyncMock, patch
 
-from xapi import xapi, LoginFailed, ConnectionClosed
-from mock_server import MockServer
+from xapi import connect, XAPI, Socket, Stream, LoginFailed
 
-CREDENTIALS = {
-    "accountId": "mockId",
-    "password": "mockPasswd",
-    "host": f"ws://127.0.0.1:60451"
-}
+class TestXAPI(unittest.IsolatedAsyncioTestCase):
 
-class TestEspiEbiReports(unittest.IsolatedAsyncioTestCase):
+    async def test_xapi(self):
+        async with XAPI() as x:
+            self.assertIsInstance(x.socket, Socket)
+            self.assertIsInstance(x.stream, Stream)
 
-    @classmethod
-    def setUpClass(cls):
-        cls.mock_server = MockServer("127.0.0.1", 60451)
-        time.sleep(.1) # wait for the server to become ready
-        pass
+    @patch('xapi.xapi.Stream', return_value=AsyncMock())
+    @patch('xapi.xapi.Socket', return_value=AsyncMock())
+    async def test_connect_successful_login(self, SocketMock, _):
+        SocketMock().login.return_value = {"status": True, "streamSessionId": "abc123"}
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.mock_server.destroy()
-        pass
+        async with await connect("myaccount", "mypassword", "ws.xtb.com", "real", False) as x:
+            self.assertIsInstance(x, XAPI)
 
-    async def test_connect(self):
-        try:
-            x = await xapi.connect(**CREDENTIALS)
-            await x.stream.getTickPrices("BITCOIN")
+            self.assertEqual(x.stream.safe, False)
+            self.assertEqual(x.socket.safe, False)
+            self.assertEqual(x.stream.streamSessionId, "abc123")
 
-        except LoginFailed as e:
-            print(f"Log in failed: {e}")
+            x.socket.connect.assert_called_once_with("wss://ws.xtb.com/real")
+            x.stream.connect.assert_called_once_with("wss://ws.xtb.com/realStream")
+            x.socket.login.assert_called_once_with("myaccount", "mypassword")
 
-        except ConnectionClosed as e:
-            print(f"Connection closed: {e}")
+    @patch('xapi.xapi.Stream', return_value=AsyncMock())
+    @patch('xapi.xapi.Socket', return_value=AsyncMock())
+    async def test_connect_failed_login(self, SocketMock, _):
+        SocketMock().login.return_value = AsyncMock(return_value = {"status": False, "errorCode": 1001})
+
+        with self.assertRaises(LoginFailed):
+            await connect("myaccount", "mypassword", "ws.xtb.com", "real", False)
 
 if __name__ == '__main__':
-    unittest.main(exit=False)
-    print("all")
+    unittest.main()

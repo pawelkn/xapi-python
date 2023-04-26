@@ -65,12 +65,6 @@ class Stream(Connection):
             "command": "stopProfits"
         })
 
-    async def stopTickPrices(self, symbol: str):
-        return await self._request({
-            "command": "stopTickPrices",
-            "symbol": symbol
-        })
-
     async def getTickPrices(self, symbol: str, minArrivalTime: int = 0, maxLevel: int = 2):
         return await self._request({
             "command": "getTickPrices",
