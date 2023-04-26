@@ -236,7 +236,3 @@ class TestSocket(unittest.IsolatedAsyncioTestCase):
                 "order": 123
             }
         })
-
-
-if __name__ == '__main__':
-    unittest.main()

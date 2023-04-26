@@ -33,6 +33,3 @@ class TestXAPI(unittest.IsolatedAsyncioTestCase):
 
         with self.assertRaises(LoginFailed):
             await connect("myaccount", "mypassword", "ws.xtb.com", "real", False)
-
-if __name__ == '__main__':
-    unittest.main()
