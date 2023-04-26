@@ -12,8 +12,9 @@ jobs:
         with:
           python-version: 3.7
 
+      - uses: actions/checkout@v3
+
       - name: Install requirements
-        uses: actions/checkout@v3
         run: pip install -r requirements.txt
 
       - name: Install coverage
