@@ -4,6 +4,7 @@ from unittest.mock import AsyncMock, patch
 import websockets.client
 import websockets.exceptions
 import json
+import asyncio
 
 from xapi import Connection, ConnectionClosed
 
@@ -11,21 +12,30 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
 
     async def test_connect_timeout_error(self):
         c = Connection()
-        with self.assertRaises(ConnectionClosed) as cm:
-            await c.connect("ws://127.0.0.1:9000")
-        self.assertEqual(str(cm.exception), "Connection refused")
+        with patch("websockets.client.connect", new_callable=AsyncMock) as mocked_connect:
+            mocked_connect.side_effect = asyncio.exceptions.TimeoutError()
+            with self.assertRaises(ConnectionClosed) as cm:
+                await c.connect("ws://127.0.0.1:9000")
+            self.assertEqual(str(cm.exception), "Connection timed out")
 
     async def test_connect_refused_error(self):
-        conn = Connection()
+        c = Connection()
         with patch("websockets.client.connect", new_callable=AsyncMock) as mocked_connect:
             mocked_connect.side_effect = ConnectionRefusedError()
             with self.assertRaises(ConnectionClosed) as cm:
-                await conn.connect("ws://127.0.0.1:9000")
+                await c.connect("ws://127.0.0.1:9000")
             self.assertEqual(str(cm.exception), "Connection refused")
 
     async def test_disconnect(self):
         c = Connection()
         c._conn = AsyncMock(spec=websockets.client.WebSocketClientProtocol)
+        await c.disconnect()
+        self.assertIsNone(c._conn)
+
+    async def test_disconnect_connection_closed(self):
+        c = Connection()
+        c._conn = AsyncMock(spec=websockets.client.WebSocketClientProtocol)
+        c._conn.close.side_effect = websockets.exceptions.ConnectionClosed(None, None)
         await c.disconnect()
         self.assertIsNone(c._conn)
 
@@ -41,8 +51,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
     async def test_listen_without_connection(self):
         c = Connection()
         with self.assertRaises(ConnectionClosed) as cm:
-            async for _ in c.listen():
-                pass
+            async for _ in c.listen(): pass
         self.assertEqual(str(cm.exception), "Not connected")
 
     async def test_listen_connection_closed(self):
@@ -50,8 +59,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
         c._conn = AsyncMock()
         c._conn.__aiter__.side_effect = websockets.exceptions.ConnectionClosed(None, None)
         with self.assertRaises(ConnectionClosed) as cm:
-            async for _ in c.listen():
-                pass
+            async for _ in c.listen(): pass
         self.assertEqual(str(cm.exception), "Connection unexpectedly closed")
 
     async def test_request_with_connection(self):
