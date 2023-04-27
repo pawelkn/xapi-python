@@ -8,11 +8,11 @@ import json
 class Connection():
     def __init__(self):
         self.safe = False
-        self.__conn = None
+        self._conn = None
 
     async def connect(self, url):
         try:
-            self.__conn = await websockets.client.connect(url, close_timeout=0)
+            self._conn = await websockets.client.connect(url, close_timeout=0)
 
         except asyncio.exceptions.TimeoutError:
             raise ConnectionClosed("Connection timed out")
@@ -22,47 +22,47 @@ class Connection():
 
     async def disconnect(self):
         try:
-            if self.__conn:
-                await self.__conn.close()
+            if self._conn:
+                await self._conn.close()
 
         except websockets.exceptions.ConnectionClosed:
             pass
 
-        self.__conn = None
+        self._conn = None
 
     async def listen(self):
         try:
-            if self.__conn:
-                async for message in self.__conn:
+            if self._conn:
+                async for message in self._conn:
                     yield json.loads(message)
             else:
                 raise ConnectionClosed("Not connected")
 
         except websockets.exceptions.ConnectionClosed:
-            self.__conn = None
+            self._conn = None
             raise ConnectionClosed("Connection unexpectedly closed")
 
     async def _request(self, command):
         try:
-            if self.__conn:
-                await self.__conn.send(json.dumps(command))
+            if self._conn:
+                await self._conn.send(json.dumps(command))
             else:
                 raise ConnectionClosed("Not connected")
 
         except websockets.exceptions.ConnectionClosed:
-            self.__conn = None
+            self._conn = None
             raise ConnectionClosed("Connection unexpectedly closed")
 
     async def _response(self):
         try:
-            if self.__conn:
-                response = await self.__conn.recv()
+            if self._conn:
+                response = await self._conn.recv()
                 return json.loads(response)
             else:
                 raise ConnectionClosed("Not connected")
 
         except websockets.exceptions.ConnectionClosed:
-            self.__conn = None
+            self._conn = None
             raise ConnectionClosed("Connection unexpectedly closed")
 
     async def _transaction(self, command):
