@@ -1,18 +1,25 @@
 [project]
 name = "xapi-python"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Paweł Knioła", email="pawel.kn@gmail.com" },
 ]
 description = "The xStation5 API Python library"
+keywords = ["python", "trading", "websocket", "trading-api", "forex", "xapi", "forex-trading", "exchange-api", "forex-data", "xstation5", "xtb", "xopenhub", "forex-api", "xopenhub-api", "xtb-api", "xstation-api", "x-trade-brokers", "bfbcapital", "xstation"]
 readme = "README.md"
+license = { file="LICENSE" }
 requires-python = ">=3.7"
 classifiers = [
-    "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.7",      #Specify which pyhton versions that you want to support
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/pypa/sampleproject"
-"Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+"Homepage" = "https://github.com/pawelkn/xapi-python"
+"Bug Tracker" = "https://github.com/pawelkn/xapi-python/issues"

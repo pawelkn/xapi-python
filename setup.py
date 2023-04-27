@@ -10,10 +10,16 @@ setup(
     keywords='python trading websocket trading-api forex xapi forex-trading exchange-api forex-data xstation5 xtb xopenhub forex-api xopenhub-api xtb-api xstation-api x-trade-brokers bfbcapital xstation',
     url='https://github.com/pawelkn/xapi-python',
     classifiers=[
-        "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12"
     ],
     python_requires='>=3.7',
-    version="0.0.1",
+    version="0.0.2",
     packages=['xapi'],
 )
