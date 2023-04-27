@@ -12,7 +12,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
     async def test_connect_timeout_error(self):
         c = Connection()
         with self.assertRaises(ConnectionClosed) as cm:
-            await c.connect("ws://localhost:9000")
+            await c.connect("ws://127.0.0.1:9000")
         self.assertEqual(str(cm.exception), "Connection refused")
 
     async def test_connect_refused_error(self):
@@ -20,7 +20,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
         with patch("websockets.client.connect", new_callable=AsyncMock) as mocked_connect:
             mocked_connect.side_effect = ConnectionRefusedError()
             with self.assertRaises(ConnectionClosed) as cm:
-                await conn.connect("ws://localhost:9000")
+                await conn.connect("ws://127.0.0.1:9000")
             self.assertEqual(str(cm.exception), "Connection refused")
 
     async def test_disconnect(self):
