@@ -174,3 +174,7 @@ This will run all of the unit tests in the tests directory:
 ```shell
 python3 -m unittest discover tests
 ```
+
+## Buy Me A Coffee! ☕
+
+If you find the project beneficial and would like to support me, please consider showing your appreciation by buying me a coffee on [BuyMeACoffee](https://www.buymeacoffee.com/pawelkn)
