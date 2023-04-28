@@ -7,7 +7,7 @@ import json
 
 class Connection():
     def __init__(self):
-        self.safe = False
+        self.safe = True
         self._conn = None
 
     async def connect(self, url):

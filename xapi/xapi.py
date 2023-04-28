@@ -22,7 +22,7 @@ async def connect(
         password: str,
         host: str = "ws.xtb.com",
         type: str = "real",
-        safe: bool = False
+        safe: bool = True
     ):
 
     x = XAPI()
