@@ -7,7 +7,7 @@ setup(
     description='The xStation5 API Python library',
     long_description=open('README.md', encoding='utf-8').read(),
     license='MIT',
-    keywords='python trading websocket trading-api forex xapi forex-trading exchange-api forex-data xstation5 xtb xopenhub forex-api xopenhub-api xtb-api xstation-api x-trade-brokers bfbcapital xstation',
+    keywords='python python3 bitcoin trading websocket trading-api forex xapi forex-trading exchange-api forex-data xstation xstation5 xtb xopenhub forex-api xopenhub-api xtb-api xstation-api x-trade-brokers bfbcapital',
     url='https://github.com/pawelkn/xapi-python',
     classifiers=[
         "Operating System :: OS Independent",

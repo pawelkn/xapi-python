@@ -5,7 +5,11 @@ authors = [
   { name="Paweł Knioła", email="pawel.kn@gmail.com" },
 ]
 description = "The xStation5 API Python library"
-keywords = ["python", "trading", "websocket", "trading-api", "forex", "xapi", "forex-trading", "exchange-api", "forex-data", "xstation5", "xtb", "xopenhub", "forex-api", "xopenhub-api", "xtb-api", "xstation-api", "x-trade-brokers", "bfbcapital", "xstation"]
+keywords = [
+  "python", "python3", "bitcoin", "trading", "websocket", "trading-api", "forex", "xapi", "forex-trading",
+  "exchange-api", "forex-data", "xstation", "xstation5", "xtb", "xopenhub", "forex-api", "xopenhub-api",
+  "xtb-api", "xstation-api", "x-trade-brokers", "bfbcapital"
+]
 readme = "README.md"
 license = { file="LICENSE" }
 requires-python = ">=3.7"
