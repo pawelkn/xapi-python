@@ -22,7 +22,7 @@ pip install xapi-python
 
 ## Usage
 
-To use xAPI, you will need to have an active account with the xStation5 trading platform. Once you have an account, you can use the xStation5 library to connect to the platform and begin trading.
+To use xAPI, you will need to have an active account with the xStation5 trading platform. Once you have an account, you can use the xAPI library to connect to the platform and begin trading.
 
 Here is an example of how to use the xAPI library to connect to the xStation5 platform:
 
@@ -36,7 +36,7 @@ CREDENTIALS = {
     "password": "<your_password>",
     "host": "ws.xtb.com",
     "type": "real",
-    "safe": False
+    "safe": True
 }
 
 async def main():
@@ -69,7 +69,7 @@ CREDENTIALS = {
     "password": "<your_password>",
     "host": "ws.xtb.com",
     "type": "real",
-    "safe": False
+    "safe": True
 }
 
 async def main():
@@ -157,7 +157,7 @@ Before running the examples, you should create a file called _credentials.json_ 
     "password": "<your_password>",
     "host": "ws.xtb.com",
     "type": "real",
-    "safe": false
+    "safe": true
 }
 ```
 
