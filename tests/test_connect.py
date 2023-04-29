@@ -85,29 +85,6 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
             await conn._request(command)
         self.assertEqual(str(cm.exception), "Connection unexpectedly closed")
 
-    async def test_response_with_connection(self):
-        conn = Connection()
-        conn._conn = AsyncMock()
-        response = {"response": "test"}
-        conn._conn.recv.return_value = json.dumps(response)
-        result = await conn._response()
-        conn._conn.recv.assert_called_once()
-        self.assertEqual(result, response)
-
-    async def test_response_without_connection(self):
-        conn = Connection()
-        with self.assertRaises(ConnectionClosed) as cm:
-            await conn._response()
-        self.assertEqual(str(cm.exception), "Not connected")
-
-    async def test_response_connection_closed(self):
-        conn = Connection()
-        conn._conn = AsyncMock()
-        conn._conn.recv.side_effect = websockets.exceptions.ConnectionClosed(None, None)
-        with self.assertRaises(ConnectionClosed) as cm:
-            await conn._response()
-        self.assertEqual(str(cm.exception), "Connection unexpectedly closed")
-
     async def test_transaction_with_connection(self):
         conn = Connection()
         conn._conn = AsyncMock()

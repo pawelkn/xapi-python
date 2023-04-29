@@ -9,6 +9,7 @@ class Connection():
     def __init__(self):
         self.safe = True
         self._conn = None
+        self._lock = asyncio.Lock()
 
     async def connect(self, url):
         try:
@@ -53,18 +54,16 @@ class Connection():
             self._conn = None
             raise ConnectionClosed("Connection unexpectedly closed")
 
-    async def _response(self):
-        try:
-            if self._conn:
-                response = await self._conn.recv()
-                return json.loads(response)
-            else:
-                raise ConnectionClosed("Not connected")
-
-        except websockets.exceptions.ConnectionClosed:
-            self._conn = None
-            raise ConnectionClosed("Connection unexpectedly closed")
-
     async def _transaction(self, command):
-        await self._request(command)
-        return await self._response()
+        async with self._lock:
+            try:
+                if self._conn:
+                    await self._conn.send(json.dumps(command))
+                    response = await self._conn.recv()
+                    return json.loads(response)
+                else:
+                    raise ConnectionClosed("Not connected")
+
+            except websockets.exceptions.ConnectionClosed:
+                self._conn = None
+                raise ConnectionClosed("Connection unexpectedly closed")
