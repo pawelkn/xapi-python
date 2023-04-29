@@ -14,6 +14,10 @@ class XAPI:
         await self.disconnect()
 
     async def disconnect(self):
+        """
+        This is an asynchronous function that closes connection to the xStation5 trading platform.
+        """
+
         await self.socket.disconnect()
         await self.stream.disconnect()
 
@@ -24,6 +28,34 @@ async def connect(
         type: str = "real",
         safe: bool = True
     ):
+    """
+    This is an asynchronous function that establishes a connection to the xStation5 trading platform.
+
+    Parameters
+    ----------
+    `accountId` : `str`
+        User's xStation5 account ID
+    `password` : `str`
+        User's xStation5 account password
+    `host` : `str`, `optional`
+        The xStation5 trading platform host name or IP address (default is `ws.xtb.com`)
+    `type` : `str`, `optional`
+        A type of the xStation5 account, which can be either `real` or `demo` (default is `real`)
+    `safe` : `boolean`, `optional`
+        A parameter indicating whether the connection should disallow trade execution (default is `True`)
+
+    Returns
+    -------
+    `XAPI`
+        An object of XAPI that can be utilized to communicate with the xStation 5 trading platform.
+
+    Raises
+    ------
+    `LoginFailed`
+        Raised when a log in failed.
+    `ConnectionClosed`
+        Raised when a connection has never been opened or closed unexpectedly.
+    """
 
     x = XAPI()
 

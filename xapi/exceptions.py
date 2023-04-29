@@ -5,5 +5,5 @@ class LoginFailed(Exception):
 
 class ConnectionClosed(Exception):
     """
-    Raised when a connection was never opened or closed unexpectedly.
+    Raised when a connection has never been opened or closed unexpectedly.
     """
