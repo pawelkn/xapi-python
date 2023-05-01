@@ -1,6 +1,6 @@
 [project]
 name = "xapi-python"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   { name="Paweł Knioła", email="pawel.kn@gmail.com" },
 ]
@@ -22,6 +22,14 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12"
+]
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "wheel",
+    "setuptools",
+    "websockets >= 11.0.2"
 ]
 
 [project.urls]
