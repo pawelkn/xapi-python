@@ -172,6 +172,8 @@ python3 examples/get-margin-level.py
 This will run all of the unit tests in the tests directory:
 
 ```shell
+git clone https://github.com/pawelkn/xapi-python.git
+cd xapi-python
 python3 -m unittest discover tests
 ```
 
