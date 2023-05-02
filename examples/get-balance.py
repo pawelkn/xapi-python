@@ -23,6 +23,7 @@ async def main():
 
         except xapi.ConnectionClosed as e:
             print(f"Connection closed: {e}, reconnecting ...")
+            await asyncio.sleep(1)
             continue
 
 if __name__ == "__main__":
