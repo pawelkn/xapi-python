@@ -17,7 +17,7 @@ class Connection():
             self._conn = await websockets.client.connect(url, close_timeout=0, max_size=None)
 
         except socket.gaierror:
-            raise ConnectionClosed("Connection hostname cannot be resolved")
+            raise ConnectionClosed("Hostname cannot be resolved")
 
         except asyncio.exceptions.TimeoutError:
             raise ConnectionClosed("Connection timed out")

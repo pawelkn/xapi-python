@@ -17,7 +17,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
             mocked_connect.side_effect = socket.gaierror()
             with self.assertRaises(ConnectionClosed) as cm:
                 await c.connect("ws://127.0.0.1:9000")
-            self.assertEqual(str(cm.exception), "Connection hostname cannot be resolved")
+            self.assertEqual(str(cm.exception), "Hostname cannot be resolved")
 
     async def test_connect_timeout_error(self):
         c = Connection()
