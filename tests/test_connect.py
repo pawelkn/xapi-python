@@ -3,12 +3,21 @@ from unittest.mock import AsyncMock, patch
 
 import websockets.client
 import websockets.exceptions
+import socket
 import json
 import asyncio
 
 from xapi import Connection, ConnectionClosed
 
 class TestConnection(unittest.IsolatedAsyncioTestCase):
+
+    async def test_connect_socket_gaierror(self):
+        c = Connection()
+        with patch("websockets.client.connect", new_callable=AsyncMock) as mocked_connect:
+            mocked_connect.side_effect = socket.gaierror()
+            with self.assertRaises(ConnectionClosed) as cm:
+                await c.connect("ws://127.0.0.1:9000")
+            self.assertEqual(str(cm.exception), "Connection hostname cannot be resolved")
 
     async def test_connect_timeout_error(self):
         c = Connection()

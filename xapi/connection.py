@@ -2,6 +2,7 @@ from .exceptions import ConnectionClosed
 
 import websockets.client
 import websockets.exceptions
+import socket
 import asyncio
 import json
 
@@ -14,6 +15,9 @@ class Connection():
     async def connect(self, url):
         try:
             self._conn = await websockets.client.connect(url, close_timeout=0, max_size=None)
+
+        except socket.gaierror:
+            raise ConnectionClosed("Connection hostname cannot be resolved")
 
         except asyncio.exceptions.TimeoutError:
             raise ConnectionClosed("Connection timed out")
