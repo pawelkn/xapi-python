@@ -26,7 +26,7 @@ async def connect(
         password: str,
         host: str = "ws.xtb.com",
         type: str = "real",
-        safe: bool = True
+        safe: bool = False
     ):
     """
     This is an asynchronous function that establishes a connection to the xStation5 trading platform.
@@ -42,7 +42,7 @@ async def connect(
     `type` : `str`, `optional`
         A type of the xStation5 account, which can be either `real` or `demo` (default is `real`)
     `safe` : `boolean`, `optional`
-        A parameter indicating whether the connection should disallow trade execution (default is `True`)
+        A parameter indicating whether the connection should disallow trade execution (default is `False`)
 
     Returns
     -------

@@ -158,7 +158,7 @@ Before running the examples, you should create a file called _credentials.json_ 
     "password": "<your_password>",
     "host": "ws.xtb.com",
     "type": "real",
-    "safe": true
+    "safe": false
 }
 ```
 

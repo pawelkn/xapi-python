@@ -8,7 +8,7 @@ import json
 
 class Connection():
     def __init__(self):
-        self.safe = True
+        self.safe = False
         self._conn = None
         self._lock = asyncio.Lock()
 
