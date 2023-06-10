@@ -180,4 +180,4 @@ python3 -m unittest discover tests
 
 ## Buy Me A Coffee! ☕
 
-If you find the project beneficial and would like to support me, please consider showing your appreciation by buying me a coffee on [BuyMeACoffee](https://www.buymeacoffee.com/pawelkn)
+If you find the project beneficial and would like to support me, please consider showing your appreciation by buying me a coffee on [Buy Me A Coffee](https://www.buymeacoffee.com/pawelkn) or [Buy Coffee Poland](buycoffee.to/pawelkn)
