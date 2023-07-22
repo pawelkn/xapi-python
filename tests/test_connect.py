@@ -11,6 +11,14 @@ from xapi import Connection, ConnectionClosed
 
 class TestConnection(unittest.IsolatedAsyncioTestCase):
 
+    async def test_connect_websocket_exception(self):
+        c = Connection()
+        with patch("websockets.client.connect", new_callable=AsyncMock) as mocked_connect:
+            mocked_connect.side_effect = websockets.exceptions.WebSocketException()
+            with self.assertRaises(ConnectionClosed) as cm:
+                await c.connect("ws://127.0.0.1:9000")
+            self.assertEqual(str(cm.exception), "WebSocket exception: ")
+
     async def test_connect_socket_gaierror(self):
         c = Connection()
         with patch("websockets.client.connect", new_callable=AsyncMock) as mocked_connect:

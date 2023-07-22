@@ -16,6 +16,9 @@ class Connection():
         try:
             self._conn = await websockets.client.connect(url, close_timeout=0, max_size=None)
 
+        except websockets.exceptions.WebSocketException as e:
+            raise ConnectionClosed(f"WebSocket exception: {e}")
+
         except socket.gaierror:
             raise ConnectionClosed("Hostname cannot be resolved")
 
