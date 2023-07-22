@@ -46,9 +46,9 @@ class Connection():
             else:
                 raise ConnectionClosed("Not connected")
 
-        except websockets.exceptions.ConnectionClosed:
+        except websockets.exceptions.WebSocketException as e:
             self._conn = None
-            raise ConnectionClosed("Connection unexpectedly closed")
+            raise ConnectionClosed(f"WebSocket exception: {e}")
 
     async def _request(self, command):
         try:
@@ -57,9 +57,9 @@ class Connection():
             else:
                 raise ConnectionClosed("Not connected")
 
-        except websockets.exceptions.ConnectionClosed:
+        except websockets.exceptions.WebSocketException as e:
             self._conn = None
-            raise ConnectionClosed("Connection unexpectedly closed")
+            raise ConnectionClosed(f"WebSocket exception: {e}")
 
     async def _transaction(self, command):
         async with self._lock:
@@ -71,6 +71,6 @@ class Connection():
                 else:
                     raise ConnectionClosed("Not connected")
 
-            except websockets.exceptions.ConnectionClosed:
+            except websockets.exceptions.WebSocketException as e:
                 self._conn = None
-                raise ConnectionClosed("Connection unexpectedly closed")
+                raise ConnectionClosed(f"WebSocket exception: {e}")

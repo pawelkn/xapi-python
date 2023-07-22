@@ -3,6 +3,7 @@ from unittest.mock import AsyncMock, patch
 
 import websockets.client
 import websockets.exceptions
+import websockets.datastructures
 import socket
 import json
 import asyncio
@@ -14,10 +15,10 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
     async def test_connect_websocket_exception(self):
         c = Connection()
         with patch("websockets.client.connect", new_callable=AsyncMock) as mocked_connect:
-            mocked_connect.side_effect = websockets.exceptions.WebSocketException()
+            mocked_connect.side_effect = websockets.exceptions.InvalidStatusCode(status_code=404, headers=websockets.datastructures.Headers())
             with self.assertRaises(ConnectionClosed) as cm:
                 await c.connect("ws://127.0.0.1:9000")
-            self.assertEqual(str(cm.exception), "WebSocket exception: ")
+            self.assertEqual(str(cm.exception), "WebSocket exception: server rejected WebSocket connection: HTTP 404")
 
     async def test_connect_socket_gaierror(self):
         c = Connection()
@@ -77,7 +78,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
         c._conn.__aiter__.side_effect = websockets.exceptions.ConnectionClosed(None, None)
         with self.assertRaises(ConnectionClosed) as cm:
             async for _ in c.listen(): pass
-        self.assertEqual(str(cm.exception), "Connection unexpectedly closed")
+        self.assertEqual(str(cm.exception), "WebSocket exception: no close frame received or sent")
 
     async def test_request_with_connection(self):
         conn = Connection()
@@ -100,7 +101,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
         command = {"command": "test"}
         with self.assertRaises(ConnectionClosed) as cm:
             await conn._request(command)
-        self.assertEqual(str(cm.exception), "Connection unexpectedly closed")
+        self.assertEqual(str(cm.exception), "WebSocket exception: no close frame received or sent")
 
     async def test_transaction_with_connection(self):
         conn = Connection()
@@ -127,4 +128,4 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
         command = {"command": "test"}
         with self.assertRaises(ConnectionClosed) as cm:
             await conn._transaction(command)
-        self.assertEqual(str(cm.exception), "Connection unexpectedly closed")
+        self.assertEqual(str(cm.exception), "WebSocket exception: no close frame received or sent")
