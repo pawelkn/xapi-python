@@ -95,7 +95,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
             await conn._request(command)
         self.assertEqual(str(cm.exception), "Not connected")
 
-    async def test_request_with_delay(self):
+    async def test_request_with_and_without_delay(self):
         conn = Connection()
         conn._conn = AsyncMock()
         command = {"command": "test"}
@@ -109,6 +109,15 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
         end_time = time.time()
         elapsed_time = end_time - start_time
         self.assertGreaterEqual(elapsed_time, 0.2)
+
+        # third run without delay
+        conn.skip_delay()
+
+        start_time = time.time()
+        await conn._request(command)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        self.assertLess(elapsed_time, 0.2)
 
     async def test_request_connection_closed(self):
         conn = Connection()
@@ -137,7 +146,7 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
             await conn._transaction(command)
         self.assertEqual(str(cm.exception), "Not connected")
 
-    async def test_transaction_with_delay(self):
+    async def test_transaction_with_and_without_delay(self):
         conn = Connection()
         conn._conn = AsyncMock()
         command = {"command": "test"}
@@ -153,6 +162,15 @@ class TestConnection(unittest.IsolatedAsyncioTestCase):
         end_time = time.time()
         elapsed_time = end_time - start_time
         self.assertGreaterEqual(elapsed_time, 0.2)
+
+        # third run without delay
+        conn.skip_delay()
+
+        start_time = time.time()
+        await conn._transaction(command)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        self.assertLess(elapsed_time, 0.2)
 
     async def test_transaction_send_connection_closed(self):
         conn = Connection()

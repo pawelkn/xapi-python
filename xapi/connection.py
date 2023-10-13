@@ -14,6 +14,10 @@ class Connection():
         self._lock = asyncio.Lock()
         self._last_request_time = None
 
+    def skip_delay(self):
+        """Dispatch the next request without the 200ms delay"""
+        self._last_request_time = None
+
     async def connect(self, url):
         try:
             self._conn = await websockets.client.connect(url, close_timeout=0, max_size=None)

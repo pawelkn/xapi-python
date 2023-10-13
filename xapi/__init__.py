@@ -3,7 +3,7 @@
 """
 
 name = "xapi"
-__version__ = "0.1.6"
+__version__ = "0.1.7"
 
 from .xapi import XAPI, connect
 from .enums import TradeCmd, TradeType, TradeStatus, PeriodCode
