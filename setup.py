@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='xapi-python',
     author='Paweł Knioła',
-    author_email='pawel.kn@gmail.com',
+    author_email='pawel@kniola.pl',
     description='The xStation5 API Python library',
     long_description=open('README.md', encoding='utf-8').read(),
     license='MIT',
@@ -17,9 +17,10 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3.12"
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
     python_requires='>=3.7',
-    version="0.1.7",
+    version="0.2.0",
     packages=['xapi'],
 )

@@ -24,40 +24,7 @@ pip install xapi-python
 
 To use xAPI, you will need to have an active account with the xStation5 trading platform. Once you have an account, you can use the xAPI library to connect to the platform and begin trading.
 
-Here is an example of how to use the xAPI library to connect to the xStation5 platform:
-
-```python
-import asyncio
-import xapi
-
-# Replace these values with your own credentials
-CREDENTIALS = {
-    "accountId": "<your_client_id>",
-    "password": "<your_password>",
-    "host": "ws.xtb.com",
-    "type": "real",
-    "safe": True
-}
-
-async def main():
-    try:
-        # Create a new xAPI object and connect to the xStation5 platform
-        async with await xapi.connect(**CREDENTIALS) as x:
-            pass
-
-    except xapi.LoginFailed as e:
-        print(f"Log in failed: {e}")
-
-    except xapi.ConnectionClosed as e:
-        print(f"Connection closed: {e}")
-
-if __name__ == "__main__":
-    asyncio.run(main())
-```
-
-Once you have connected to the platform, you can use the xAPI object to retrieve market data and execute trades.
-
-Here is an example of how to subscribe to market data using the xAPI library:
+Here is an example of how to use the xAPI library to connect to the xStation5 platform and subscribe to market data:
 
 ```python
 import asyncio
@@ -106,7 +73,6 @@ And here is an example of how to execute a trade using the xAPI library:
 ```python
 import asyncio
 import xapi
-from xapi import TradeCmd, TradeType, TradeStatus
 
 # Replace these values with your own credentials
 CREDENTIALS = {
@@ -143,6 +109,12 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+## Command Line Interface (CLI)
+
+The xAPI library provides a command line interface (CLI) for interacting with the xStation5 API. You can run the xAPI commands without leaving the terminal. Just use the `xapi` command.
+
+![xAPI in action](assets/cli-example.gif)
 
 ## Examples
 

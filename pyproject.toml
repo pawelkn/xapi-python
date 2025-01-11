@@ -1,8 +1,8 @@
 [project]
 name = "xapi-python"
-version = "0.1.7"
+version = "0.2.0"
 authors = [
-  { name="Paweł Knioła", email="pawel.kn@gmail.com" },
+  { name="Paweł Knioła", email="pawel@kniola.pl" },
 ]
 description = "The xStation5 API Python library"
 keywords = [
@@ -21,12 +21,17 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12"
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "websockets>=11.0.2"
+  "websockets>=11.0.2",
+  "click>=8.1.8"
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/pawelkn/xapi-python"
 "Bug Tracker" = "https://github.com/pawelkn/xapi-python/issues"
+
+[project.scripts]
+xapi = "xapi.cli:cli"

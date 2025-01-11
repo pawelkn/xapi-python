@@ -1,9 +1,9 @@
 """
-.. moduleauthor:: Paweł Knioła <pawel.kn@gmail.com>
+.. moduleauthor:: Paweł Knioła <pawel@kniola.pl>
 """
 
 name = "xapi"
-__version__ = "0.1.7"
+__version__ = "0.2.0"
 
 from .xapi import XAPI, connect
 from .enums import TradeCmd, TradeType, TradeStatus, PeriodCode
