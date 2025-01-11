@@ -101,12 +101,12 @@ class Socket(Connection):
             }
         })
 
-    async def getProfitCalculation(self, symbol: str, cmd: int, openPrice: float, closePrice: float, volume: float):
+    async def getProfitCalculation(self, symbol: str, cmd: TradeCmd, openPrice: float, closePrice: float, volume: float):
         return await self._transaction({
             "command": "getProfitCalculation",
             "arguments": {
                 "closePrice": closePrice,
-                "cmd": cmd,
+                "cmd": cmd.value,
                 "openPrice": openPrice,
                 "symbol": symbol,
                 "volume": volume
