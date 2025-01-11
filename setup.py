@@ -21,6 +21,6 @@ setup(
         "Programming Language :: Python :: 3.13",
     ],
     python_requires='>=3.7',
-    version="0.2.0",
+    version="0.2.1",
     packages=['xapi'],
 )

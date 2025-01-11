@@ -112,12 +112,12 @@ class TestSocket(unittest.IsolatedAsyncioTestCase):
         })
 
     async def test_getProfitCalculation(self):
-        await self.socket.getProfitCalculation("symbol", 1, 1.23, 4.56, 10)
+        await self.socket.getProfitCalculation("symbol", TradeCmd.SELL, 1.23, 4.56, 10)
         self.socket._transaction.assert_awaited_once_with({
             "command": "getProfitCalculation",
             "arguments": {
                 "closePrice": 4.56,
-                "cmd": 1,
+                "cmd": TradeCmd.SELL.value,
                 "openPrice": 1.23,
                 "symbol": "symbol",
                 "volume": 10

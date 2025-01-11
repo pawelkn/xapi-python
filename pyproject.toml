@@ -1,6 +1,6 @@
 [project]
 name = "xapi-python"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
   { name="Paweł Knioła", email="pawel@kniola.pl" },
 ]
