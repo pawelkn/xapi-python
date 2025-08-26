@@ -2,6 +2,14 @@
 
 [![Test xapi-python](https://github.com/pawelkn/xapi-python/actions/workflows/test-xapi-python.yml/badge.svg)](https://github.com/pawelkn/xapi-python/actions/workflows/test-xapi-python.yml) [![PyPi](https://img.shields.io/pypi/v/xapi-python.svg)](https://pypi.python.org/pypi/xapi-python/) [![Downloads](https://img.shields.io/pypi/dm/xapi-python)](https://pypi.python.org/pypi/xapi-python/) [![Codecov](https://codecov.io/gh/pawelkn/xapi-python/branch/master/graph/badge.svg)](https://codecov.io/gh/pawelkn/xapi-python/)
 
+## ⚠️ DEPRECATION NOTICE
+
+**This library will no longer be functional after March 14, 2025.**
+
+XTB has announced that access to the API service through the hosts `xapi.xtb.com` and `ws.xtb.com` will be discontinued as of March 14, 2025. This means that this Python library, which relies on these API endpoints, will no longer work.
+
+---
+
 The xStation5 API Python library provides a simple and easy-to-use API for interacting with the xStation5 trading platform. With this library, you can connect to the xStation5 platform, retrieve market data, and execute trades.
 
 This library may be used for [BFB Capital](https://bfb.capital) and [XTB](https://www.xtb.com) xStation5 accounts.
